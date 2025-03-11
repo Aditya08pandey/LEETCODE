@@ -1,16 +1,18 @@
 class Solution {
     public int numberOfSubstrings(String s) {
-        int[] track = new int[3]; //also we can use 3 variables for counting (a, b, c)
-        int res = 0;
-        int left = 0;
-        for (int i = 0; i < s.length(); i++) {
-            track[s.charAt(i) - 'a']++;
+        int[] freq = new int[3]; // 'a' -> 0, 'b' -> 1, 'c' -> 2
+        int left = 0, ans = 0;
 
-            while (track[0] > 0 && track[1] > 0 && track[2] > 0) {
-                res += s.length() - i;
-                track[s.charAt(left++) - 'a']--;
+        for (int right = 0; right < s.length(); right++) {
+            freq[s.charAt(right) - 'a']++;
+
+            while (freq[0] > 0 && freq[1] > 0 && freq[2] > 0) {
+                ans += s.length() - right;
+                freq[s.charAt(left) - 'a']--;
+                left++;
             }
         }
-        return res;
+
+        return ans;
     }
 }
