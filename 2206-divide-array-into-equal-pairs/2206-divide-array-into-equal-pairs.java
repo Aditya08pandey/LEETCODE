@@ -1,8 +1,15 @@
 class Solution {
-       public boolean divideArray(int[] nums) {
-        int[] cnt = new int[501];
-        for (int n : nums)
-            ++cnt[n];
-        return IntStream.of(cnt).allMatch(n -> n % 2 == 0);
+    public boolean divideArray(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        for (int count : map.values()) {
+            if (count % 2 != 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
