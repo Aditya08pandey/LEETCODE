@@ -4,7 +4,7 @@ class Solution {
     public int maximumScore(List<Integer> nums, int k) {
         int n = nums.size();
         int[][] arr = new int[n][0];
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < n; i++) {
             arr[i] = new int[] {i, primeFactors(nums.get(i)), nums.get(i)};
         }
         int[] left = new int[n];
@@ -23,7 +23,7 @@ class Solution {
             stk.push(i);
         }
         stk.clear();
-        for (int i = n - 1; i >= 0; --i) {
+        for (int i = n - 1; i >= 0; i--) {
             int f = arr[i][1];
             while (!stk.isEmpty() && arr[stk.peek()][1] <= f) {
                 stk.pop();
@@ -58,7 +58,7 @@ class Solution {
                 ans.add(i);
                 n /= i;
             }
-            ++i;
+            i++;
         }
         if (n > 1) {
             ans.add(n);
