@@ -3,7 +3,6 @@ class Solution {
         int n = nums1.length;
         int[] pos = new int[n];
 
-        // Position map – where is each element in nums2?
         for (int i = 0; i < n; i++) {
             pos[nums2[i]] = i;
         }
@@ -14,11 +13,11 @@ class Solution {
         }
 
         long[] left = new long[n];
-        int[] bit = new int[n + 2]; // extra room for classic off-by-one safety
+        int[] bit = new int[n + 2]; 
 
         for (int i = 0; i < n; i++) {
             left[i] = query(bit, mapped[i]);
-            update(bit, mapped[i] + 1, 1);  // 1-indexed... thanks BIT \U0001f643
+            update(bit, mapped[i] + 1, 1);  
         }
 
         long[] right = new long[n];
@@ -31,7 +30,7 @@ class Solution {
 
         long res = 0;
         for (int i = 0; i < n; i++) {
-            res += left[i] * right[i]; // Middle element magic
+            res += left[i] * right[i]; 
         }
         return res;
     }
