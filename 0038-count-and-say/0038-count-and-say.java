@@ -1,20 +1,30 @@
 class Solution {
     public String countAndSay(int n) {
-        String res = "1";
-        for (int i = 1; i < n; i++) {
-            StringBuilder temp = new StringBuilder();
-            int count = 1;
-            for (int j = 1; j < res.length(); j++) {
-                if (res.charAt(j) == res.charAt(j - 1)) {
-                    count++;
-                } else {
-                    temp.append(count).append(res.charAt(j - 1));
-                    count = 1;
-                }
-            }
-            temp.append(count).append(res.charAt(res.length() - 1));
-            res = temp.toString();
+        int i = 1;
+        StringBuilder sb = new StringBuilder("1");
+        while(i<n){
+            sb = convert(sb);
+            i++;
+            // sb = s;
         }
-        return res;
+        return sb.toString();
+    }
+    public StringBuilder convert(StringBuilder sb){
+        StringBuilder s = new StringBuilder();
+        int count = 1;
+        int left = 0;
+        int right = 1;
+        while(left <sb.length()){
+            while(right<sb.length() && sb.charAt(left)==sb.charAt(right)){
+                right++;
+            
+                count++;
+            }
+            s.append(count+""+sb.charAt(left));
+            left = right;
+            right++;
+            count = 1;
+        }
+        return s;
     }
 }
