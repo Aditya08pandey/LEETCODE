@@ -1,17 +1,23 @@
 class Solution {
-  private static final int MOD = 1_000_000_007;
-  public int lengthAfterTransformations(String s, int t) {
-    int[] freq = new int[26];
-    for (char c : s.toCharArray()) freq[c-'a']++;
-    while (t-- > 0) {
-      int[] temp = new int[26];
-      for (int j=0; j<25; j++) temp[j+1] = freq[j];
-      temp[0] = (temp[0] + freq[25]) % MOD;
-      temp[1] = (temp[1] + freq[25]) % MOD;
-      freq = temp;
+    public int lengthAfterTransformations(String s, int t) {
+        int MOD = 1_000_000_007;
+        int[] v = new int[26];
+        for (char ch : s.toCharArray()) {
+            v[ch - 'a']++;
+        }
+        for (int i = 0; i < t; i++) {
+            int ele = v[25];
+            for (int j = 25; j > 0; j--) {
+                v[j] = v[j - 1];
+            }
+            v[0] = 0;
+            v[0] = (v[0] + ele) % MOD;
+            v[1] = (v[1] + ele) % MOD;
+        }
+        int sum = 0;
+        for (int i = 0; i < 26; i++) {
+            sum = (sum + v[i]) % MOD;
+        }
+        return sum;
     }
-    long ans=0;
-    for (int x: freq) ans=(ans+x)%MOD;
-    return (int)ans;
-  }
 }
