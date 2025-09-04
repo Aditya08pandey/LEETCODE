@@ -1,29 +1,41 @@
-class Solution {
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int n1 = nums1.length;
-        int n2 = nums2.length;
-        int n = n1 + n2;
-        int[] new_arr = new int[n];
+class Solution { 
+    public double findMedianSortedArrays(int[] nums1, int[] nums2){
 
-        int i=0, j=0, k=0;
+        int m=nums1.length;
+        int n=nums2.length;
+        int a[] = new int[m+n];
+        int i=0,j=0,k=0;
 
-        while (i<=n1 && j<=n2) {
-            if (i == n1) {
-                while(j<n2) new_arr[k++] = nums2[j++];
-                break;
-            } else if (j == n2) {
-                while (i<n1) new_arr[k++] = nums1[i++];
-                break;
+        while(i<m&&j<n){
+            if(nums1[i]<nums2[j]){
+                a[k]=nums1[i];
+                i++;
             }
-
-            if (nums1[i] < nums2[j]) {
-                new_arr[k++] = nums1[i++];
-            } else {
-                new_arr[k++] = nums2[j++];
+            else{
+                a[k]=nums2[j];
+                j++;
             }
+            k++;
         }
+        while(i<m){
+            a[k]=nums1[i];
+            i++;
+            k++;
+        }
+        while(j<n){
+            a[k]=nums2[j];
+            j++;
+            k++;
+        }
+        if((m+n)%2!=0){
+            return a[(m+n)/2];
 
-        if (n%2==0) return (float)(new_arr[n/2-1] + new_arr[n/2])/2;
-        else return new_arr[n/2];
+        }else{
+            int x=(m+n)/2;
+            double p=a[x];
+            double q=a[x-1];
+            return (p+q)/2; 
+        }
     }
+    
 }
